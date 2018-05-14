@@ -11,7 +11,8 @@ export default new Router({
     {
       path: '/',
       name: 'GMap',
-      component: GMap
+      component: GMap,
+      meta: 
     },
     {
       path: '/signup',
