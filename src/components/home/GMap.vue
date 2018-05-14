@@ -5,8 +5,9 @@
 </template>
 
 <script>
+  import firebase from 'firebase'
   export default {
-    name: 'Gmap',
+    name: 'GMap',
     data(){
       return {
         lat: 53,
@@ -15,7 +16,7 @@
     },
     methods: {
       renderMap(){
-        new google.maps.Map(document.getElementById('map'), {
+        const map = new google.maps.Map(document.getElementById('map'), {
           center: { lat: this.lat, lng: this.lng },
           zoom: 6,
           maxZoom: 15,
@@ -25,7 +26,8 @@
       }
     },
     mounted(){
-      this.renderMap()
+      this.renderMap();
+      console.log(firebase.auth().currentUser);
     }
   }
 </script>
