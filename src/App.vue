@@ -17,5 +17,7 @@
 
 
 <style>
-
+  body{
+    background: #ddd;
+  }
 </style>
