@@ -25,6 +25,25 @@
           minZoom: 3,
           streetViewControl: false
         });
+
+        db.collection('users').get().then(users => {
+          users.docs.forEach(doc => {
+            let data = doc.data();
+            if(data.geolocation){
+              let marker = new google.maps.Marker({
+                position: {
+                  lat: data.geolocation.lat,
+                  lng: data.geolocation.lng
+                },
+                map
+              });
+              // add click event to marker
+              marker.addListener('click', () => {
+                console.log(doc.id)
+              });
+            }
+          });
+        });
       }
     },
     mounted(){
@@ -43,13 +62,15 @@
             .then(snapshot => {
               snapshot.forEach((doc) => {
                   db.collection('users').doc(doc.id).update({
-                    lat: pos.coords.latitude,
-                    lng: pos.coords.longitude
+                    geolocation: {
+                      lat: pos.coords.latitude,
+                      lng: pos.coords.longitude
+                    }
                   });
               });
             }).then(() => {
               this.renderMap()
-          })
+          });
 
         }, (err) => {
           console.log(err);
